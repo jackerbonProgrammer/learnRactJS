@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>instant search</title>
+    <link rel="stylesheet" href="css/base.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.0/react-dom.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.2/marked.min.js"></script>
+</head>
+<body>
+
+    <div id="search"></div>
+
+    <script type="text/babel">
+	var FilteredList = React.createClass({
+  filterList: function(event){
+    var updatedList = this.state.initialItems;
+    updatedList = updatedList.filter(function(item){
+      return item.toLowerCase().search(
+        event.target.value.toLowerCase()) !== -1;
+    });
+    this.setState({items: updatedList});
+  },
+  getInitialState: function(){
+     return {
+       initialItems: [
+         "Apples",
+         "Broccoli",
+         "Cleaner",
+         "Duck",
+         "Eggs",
+         "Fish",
+         "Granola",
+         "Hash Browns",
+         "JackerBon"
+       ],
+       items: []
+     }
+  },
+  componentWillMount: function(){
+    this.setState({items: this.state.initialItems})
+  },
+  render: function(){
+    return (
+      <div className="filter-list">
+        <input type="text" placeholder="Search" onChange={this.filterList}/>
+      <List items={this.state.items}/>
+      </div>
+    );
+  }
+});
+
+var List = React.createClass({
+  render: function(){
+    return (
+      <ul>
+      {
+        this.props.items.map(function(item) {
+          return <li key={item}>{item}</li>
+        })
+       }
+      </ul>
+    )  
+  }
+});
+
+ReactDOM.render(<FilteredList/>, document.getElementById('search'));
+
+
+    </script>
+
+</body>
+</html>
