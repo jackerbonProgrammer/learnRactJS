@@ -1,0 +1,33 @@
+<script src="https://fb.me/react-0.14.5.min.js"></script>
+<script src="https://fb.me/react-dom-0.14.5.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+<div id="content"></div>
+<script type="text/babel">
+var ClickButton = React.createClass({
+  getInitialState: function() {
+    return {ccc: 'Hello'};
+  },
+  handleClick: function(event) {
+    this.setState({ccc: this.refs.myInput.value});
+  },
+  render: function() {
+    var text = this.state.ccc;
+    return (
+    <div>
+      <p>
+        {text}!
+      </p>
+      <input type="text" defaultValue={text} ref="myInput" />
+      <button onClick={this.handleClick}>
+      	click me!
+      </button>
+    </div>
+    );
+  }
+});
+
+ReactDOM.render(
+  <ClickButton />,
+  document.getElementById('content')
+);
+</script>
